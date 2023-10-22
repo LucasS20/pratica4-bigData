@@ -1,6 +1,6 @@
 import os
 import unittest
-from dataProcessor import read_json_file, avg_age_country
+from dataProcessor import read_json_file, avg_age_country,country_frequency,oldest_person_per_country
 
 
 class TestDataProcessor(unittest.TestCase):
@@ -67,6 +67,21 @@ class TestDataProcessor(unittest.TestCase):
                 {"name": "Ashley Neal", "age": 56, "country": "US"}]
         result = avg_age_country(data)
         self.assertEqual(result, {"JP": 28, "US": 56})
+
+    def test_country_frequency(self):
+        data = [{"name": "Charles Martin", "age": 28, "country": "JP"},
+                {"name": "Ashley Neal", "age": 56, "country": "US"},
+                {"name": "John Doe", "age": 34, "country": "JP"}]
+        result = country_frequency(data)
+        self.assertEqual(result, {"JP": 2, "US": 1})
+
+    def test_oldest_person_per_country(self):
+        data = [{"name": "Charles Martin", "age": 28, "country": "JP"},
+                {"name": "Ashley Neal", "age": 56, "country": "US"},
+                {"name": "John Doe", "age": 34, "country": "JP"}]
+        result = oldest_person_per_country(data)
+        self.assertEqual(result, {"JP": {"name": "John Doe", "age": 34, "country": "JP"},
+                                  "US": {"name": "Ashley Neal", "age": 56, "country": "US"}})
 
 
 if __name__ == '__main__':

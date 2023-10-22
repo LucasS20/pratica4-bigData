@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import defaultdict, Counter
 import json
 
 
@@ -28,3 +28,19 @@ def avg_age_country(data, transform_fn=None):
         avg_age[country] = sum(ages) / len(ages) if ages else None
 
     return avg_age
+
+
+def oldest_person_per_country(data):
+    oldest_people = {}
+    for person in data:
+        if 'country' in person and 'age' in person:
+            country = person['country']
+            age = person['age']
+            if country not in oldest_people or age > oldest_people[country]['age']:
+                oldest_people[country] = person
+    return oldest_people
+
+
+def country_frequency(data):
+    countries = [person.get('country') for person in data if 'country' in person]
+    return dict(Counter(countries))
